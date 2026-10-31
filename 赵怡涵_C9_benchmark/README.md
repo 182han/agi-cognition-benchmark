@@ -41,6 +41,7 @@
 | **结果汇总榜** | [`results/leaderboard.md`](results/leaderboard.md) | 由 `reproduce.sh` 自动生成，不由手工填写 |
 | 防污染/防作弊报告（A1–A7） | [`docs/防作弊报告.md`](docs/防作弊报告.md) | 每项都有实测值与阈值 |
 | 可归纳性试点（为什么上限是 2） | [`docs/可归纳性试点.md`](docs/可归纳性试点.md) | 真实等价类分布 |
+| **容量探针（分数差距是不是"搜得不够"）** | [`docs/容量探针报告.md`](docs/容量探针报告.md) | beam 160→600、规则长度 2→3 均无收益；缺口 100% 在 Phase A |
 | 逐题原始回答留痕 | [`results/raw/`](results/raw/) | 任何 LLM 分数都必须能追溯到逐题原文 |
 
 **三分钟上手**（在 `赵怡涵_C9_benchmark/` 下）：

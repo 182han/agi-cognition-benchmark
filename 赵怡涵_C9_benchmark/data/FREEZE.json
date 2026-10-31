@@ -1,0 +1,128 @@
+{
+  "author": "赵怡涵",
+  "bench": "ΔR-Bench",
+  "created_at": "2026-10-31T18:28:01",
+  "files": {
+    "bench/__init__.py": {
+      "bytes": 113,
+      "group": "code",
+      "sha256": "01d7869b91c374270cea49cee690a8b71344afdfbc91d235927732e444b7042c"
+    },
+    "bench/contamination.py": {
+      "bytes": 15439,
+      "group": "code",
+      "sha256": "16b86838e8c379892b2999a469762069e03524ded24546c883abb35b453bd44c"
+    },
+    "bench/freeze_check.py": {
+      "bytes": 7307,
+      "group": "code",
+      "sha256": "cbf156d60b66c8c8f93855ed0004a4ab19849eb847ac903feb95d2e56a8d5fcd"
+    },
+    "bench/generate.py": {
+      "bytes": 25787,
+      "group": "code",
+      "sha256": "4f59e8740b47aab10798570371085e6abb10cb3f470d01e375e413eec28bad06"
+    },
+    "bench/hypothesis.py": {
+      "bytes": 17930,
+      "group": "code",
+      "sha256": "7cb335961fffea0f076360d4bfebc326e69fe10ebd70d68e86363ff387f53547"
+    },
+    "bench/models/__init__.py": {
+      "bytes": 26818,
+      "group": "code",
+      "sha256": "a47334dd178357b8f42655cfbd8005d87a542077b8e3dfedb88da342c9a7620a"
+    },
+    "bench/pilot_identifiability.py": {
+      "bytes": 10265,
+      "group": "code",
+      "sha256": "10b87ee9529b7d67c139333ccb8992d023feb9630c7448f1368c15570367f526"
+    },
+    "bench/rules.py": {
+      "bytes": 16315,
+      "group": "code",
+      "sha256": "c6a3cb54e41f156e685165b582684e4b32747ab1ee33b64d6340b9928d98a90d"
+    },
+    "bench/run_eval.py": {
+      "bytes": 13785,
+      "group": "code",
+      "sha256": "d2eba29d2d7d0ccc99db1ca7faf0ed7542648b44798a7f9cac5df07337a057a0"
+    },
+    "bench/scoring.py": {
+      "bytes": 10020,
+      "group": "code",
+      "sha256": "45dc88c19d3655ceabe70e0fcb231d483c7c8c99fbf223f7c82c469b487051d3"
+    },
+    "bench/selfcheck.py": {
+      "bytes": 13987,
+      "group": "code",
+      "sha256": "a748ade881b86165b9e38f01eee483520945ef5f2cf3c274d223aa23c6650286"
+    },
+    "data/control_corrupt_dev.jsonl": {
+      "bytes": 138314,
+      "group": "inputs",
+      "sha256": "660d0f48f1c7124797c08046e0cca809c40544787c27c4bc9618b3673af3c45d"
+    },
+    "data/control_corrupt_holdout.jsonl": {
+      "bytes": 140603,
+      "group": "inputs",
+      "sha256": "1fd348808e5b015e38a0735c0f8e56dae38578211c6d5678e7eab4212999a761"
+    },
+    "data/holdout_seed_commitment.json": {
+      "bytes": 668,
+      "group": "inputs",
+      "sha256": "ac3fc2b0824096367986c9c72af71fe4938c3b27f3a829a6d4d343d0759ff975"
+    },
+    "data/manifest_dev.json": {
+      "bytes": 4077,
+      "group": "inputs",
+      "sha256": "751a3ab2dda0a429a1570af210ce415e29ea44151c149963e689cec1d3e8ce5b"
+    },
+    "data/manifest_holdout.json": {
+      "bytes": 4203,
+      "group": "inputs",
+      "sha256": "b38eb4c5066b141c73b55713dced6c6ad81c52b13f15d5cdd6fc09495e953e3f"
+    },
+    "data/perturb_dev.jsonl": {
+      "bytes": 145286,
+      "group": "inputs",
+      "sha256": "1e67a822e98650692f1cb8854abd1f42e1d3754b309b5c34bfe784fe722641ed"
+    },
+    "data/perturb_holdout.jsonl": {
+      "bytes": 147575,
+      "group": "inputs",
+      "sha256": "076f5e1023d449dd508a5d7a756031e5a7c89866e9bb1c1a11fa46ea3d48ee3c"
+    },
+    "data/tasks_dev.jsonl": {
+      "bytes": 137894,
+      "group": "inputs",
+      "sha256": "e118c48876e285621759ba843b57d0fae1e42a95964210384d3fd71ed82b1b5c"
+    },
+    "data/tasks_holdout.jsonl": {
+      "bytes": 140183,
+      "group": "inputs",
+      "sha256": "fce4de4fbeeebc90c7cbe9c5089a0cb906fb9f576811bf3992d62d52366d41b8"
+    },
+    "keys/keys_dev.jsonl": {
+      "bytes": 22566,
+      "group": "inputs",
+      "sha256": "f0e32189eafa1e38e7211d88fa1b41a29d021b44f3a96dff9dc1ac942fb4e0d5"
+    },
+    "keys/keys_holdout.jsonl": {
+      "bytes": 24406,
+      "group": "inputs",
+      "sha256": "213e55f54b86829f5820db317180f337b9e68c0fdffcb0647cd209ccc22abb1f"
+    },
+    "scripts/reproduce.sh": {
+      "bytes": 14168,
+      "group": "code",
+      "sha256": "33baf3afc00b28f77f96361bdf03615fdd0d447ee055ae48e620dd2c9b456137"
+    }
+  },
+  "n_code": 12,
+  "n_files": 23,
+  "n_inputs": 11,
+  "note": "冻结后评测基线：reproduce.sh 全量重跑前的冻结点",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "python": "3.12.13"
+}

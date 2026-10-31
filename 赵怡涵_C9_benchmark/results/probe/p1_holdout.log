@@ -1,0 +1,32 @@
+======================================================================
+ ΔR-Bench 评测
+ 适配器 : search_solver (inductive)
+ split  : holdout   题目集: tasks
+ 题量   : Round1=60  Round2=24
+ 前沿模型: **否**
+======================================================================
+
+结果：
+  n                                84
+  accuracy                         0.75
+  parse_failure_rate               0.0
+  acc_phase_A                      0.1667
+  acc_phase_B                      1.0
+  acc_phase_C                      0.9583
+  LearningGain_B_minus_A           0.8333
+  FeedbackGain_C_minus_B           -0.0417
+  acc_easy                         0.7143
+  acc_medium                       0.8
+  acc_hard                         0.7143
+  acc_id                           0.4444
+  acc_ood                          1.0
+  GeneralizationGap_id_minus_ood   0.0
+  RevisionRate_C_given_B           None
+  OvercorrectionRate               0.0417
+  copy_input_rate                  0.4881
+  ECE                              0.7512
+  confidence_gap                   -0.275
+
+  明细 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/search_solver_holdout_predictions.jsonl
+  分数 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/search_solver_holdout_scores.json
+  耗时 : 52.8s
