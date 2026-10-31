@@ -1,0 +1,24 @@
+{
+  "note": "被判定作废的评测运行：**不计入任何排序、对照或结论**。判据：该次运行评分所用的 gold 与当前 keys 不一致，说明它跑在另一版数据上（详见赵怡涵_C9_测试结果.md §5.2）。本文件由人工维护，只在有可核实的作废判据时新增条目。",
+  "void": [
+    {
+      "adapter": "deepseek-v4-flash",
+      "split": "holdout",
+      "task_set": "tasks",
+      "artifact": "results/deepseek-v4-flash_holdout_scores.json",
+      "predictions": "results/deepseek-v4-flash_holdout_predictions.jsonl",
+      "raw": "results/raw/llm_deepseek-v4-flash_holdout.jsonl",
+      "status": "已作废 · 不计入任何结论",
+      "reason": "评测完成于 19:42:31，而 bench/generate.py 于 19:48:18 被修改、holdout 于 19:53:48 重新生成；其预测文件里存的 gold 与当前 keys/keys_holdout.jsonl 在 63/84 题上不一致（同一次运行的 reference/search 适配器则为 0/84 不一致）。",
+      "evidence": [
+        "results/deepseek-v4-flash_holdout_predictions.jsonl 的 gold vs keys/keys_holdout.jsonl（63/84 不一致）",
+        "bench/run_eval.py::score_run 的 gold 取自 keys（故该文件写于旧 keys 之下）",
+        "在 gold 未变的 21 题上答对 20 题、在 gold 变了的 63 题上答对 0 题（说明作答对象就是旧题）",
+        "文件 mtime：raw 19:42:21 → scores 19:42:31 → bench/generate.py 19:48:18 → tasks/keys/manifest_holdout 19:53:48"
+      ],
+      "stored_accuracy": 0.7976,
+      "rescored_against_current_keys": 0.2381,
+      "verdict": "两个数都不是该模型在本数据集上的分数；本包因此**没有任何有效的模型分数**。重跑纪律与命令见 赵怡涵_C9_测试结果.md §8 第 5 条（先冻结数据并记 SHA-256 → 再评测 → 跑后复核哈希）。"
+    }
+  ]
+}

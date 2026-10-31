@@ -1,0 +1,87 @@
+# 原始回答记录 —— 不许手改。任何 LLM 分数都必须能追溯到这里的逐题原文。
+# 模型：deepseek-v4-flash（DeepSeek Harness 内的子代理，**不是前沿模型**）
+# Round 1 的 Phase A 曾因批次相邻泄漏而隔离重跑（见 赵怡涵_C9_AI日志.md 决策节点 10）。
+{"item_id": "dR-holdout-holdout-u10-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "ze tu qi", "confidence": 0.7, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u00-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "qi ha fu qi fu", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u10-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "qi mi tu fu qi", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u01-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "du lo lo lo pa lo", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u10-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "fu qi ze fu fu", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u10-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "mi ze ka mi fu", "confidence": 0.78, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u05-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "tu mi tu ni tu", "confidence": 0.14, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u05-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "tu du tu mi ni ni", "confidence": 0.8, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u08-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "mi sa pa sa ka", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u01-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "fu lo lo pa", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u00-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "ze qi ji fu fu", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u04-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "ro ji tu sa ro", "confidence": 0.85, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u04-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "sa ji", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u08-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "sa ka ve ka ka sa", "confidence": 0.8, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u05-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "du lo fu du tu", "confidence": 0.75, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u04-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "mi ji mi sa", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u00-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "qi fu fu qi ji", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u07-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "ka ji ni ka tu sa", "confidence": 0.13, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u09-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "go ji tu go tu", "confidence": 0.72, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u08-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "sa ro ka pa pa ve", "confidence": 0.8, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u02-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "ha ha ha ji", "confidence": 0.89, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u08-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "ka ka ka sa ka ve", "confidence": 0.8, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u05-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "tu mi ni ni tu du", "confidence": 0.8, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u02-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "ji ni ji ji", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u09-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "go tu tu", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u10-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "fu fu tu", "confidence": 0.78, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u06-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "ji ve ji ve", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u07-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "ka du tu du ka ni", "confidence": 0.13, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u05-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "fu du du mi lo", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u02-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "ji ni ni ji", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u08-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "sa pa ve", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u02-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "ji ji ha ha ni ni", "confidence": 0.89, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u02-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "ha ha ji ha", "confidence": 0.89, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u03-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "tu go fu lo lo go", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u11-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "qi pa pa", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u06-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "go tu go", "confidence": 0.55, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u00-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "ze qi fu ze ji", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u01-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "du pa ji pa fu fu", "confidence": 0.14, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u06-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "ka ve ka", "confidence": 0.55, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u03-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "fu lo lo tu go fu", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u03-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "tu du lo fu du", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u07-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "ka ka du", "confidence": 0.7, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u01-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "lo du pa lo", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u09-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "ji tu tu", "confidence": 0.62, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u07-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "ka sa ni ka ni ka", "confidence": 0.75, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u06-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "tu go go", "confidence": 0.55, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u03-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "fu lo lo go tu tu", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u04-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "sa ji", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u09-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "ji ze ze", "confidence": 0.72, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u04-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "sa mi mi mi", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u01-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "du pa lo lo lo pa", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u06-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "ka go ka ka ji", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u03-A1", "round": 1, "model": "deepseek-v4-flash", "raw": "du tu du fu du", "confidence": 0.15, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u11-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "qi", "confidence": 0.78, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u07-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "ni sa tu ji sa ni", "confidence": 0.7, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u00-B1", "round": 1, "model": "deepseek-v4-flash", "raw": "fu ze ji qi ze", "confidence": 0.9, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u11-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "go ro sa go go go", "confidence": 0.13, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u09-A0", "round": 1, "model": "deepseek-v4-flash", "raw": "tu tu ka ji go ji", "confidence": 0.14, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u11-B0", "round": 1, "model": "deepseek-v4-flash", "raw": "pa pa qi pa go", "confidence": 0.6, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u11-B2", "round": 1, "model": "deepseek-v4-flash", "raw": "qi go qi pa tu", "confidence": 0.65, "run_at": "2026-10-03T19:30:00"}
+{"item_id": "dR-holdout-holdout-u01-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "pa du lo", "confidence": 0.93, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u03-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "fu go lo lo lo lo fu", "confidence": 0.9, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u07-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "ka du du ji ji", "confidence": 0.88, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u04-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "sa tu mi tu tu mi", "confidence": 0.85, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u10-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "mi tu tu", "confidence": 0.85, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u11-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "go qi go", "confidence": 0.88, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u00-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "ji ji qi ji qi fu", "confidence": 0.92, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u10-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "mi fu ze tu", "confidence": 0.85, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u05-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "du tu tu fu", "confidence": 0.87, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u00-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "ze ha qi ze ze", "confidence": 0.92, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u11-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "sa tu pa tu", "confidence": 0.85, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u02-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "ni ji ha ni", "confidence": 0.92, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u08-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "ve sa sa ve", "confidence": 0.9, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u03-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "lo lo lo lo go", "confidence": 0.93, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u08-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "ka ro ka ve pa", "confidence": 0.85, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u07-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "ni du ni", "confidence": 0.88, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u06-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "go tu go tu", "confidence": 0.78, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u04-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "ro ro ro tu mi", "confidence": 0.87, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u06-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "fu tu ve fu", "confidence": 0.78, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u05-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "lo du ni ni", "confidence": 0.85, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u02-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "ji ha ha qi ji ha", "confidence": 0.95, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u09-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "ze ji du", "confidence": 0.85, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u01-C0", "round": 2, "model": "deepseek-v4-flash", "raw": "du pa lo", "confidence": 0.95, "run_at": "2026-10-03T19:40:00"}
+{"item_id": "dR-holdout-holdout-u09-C1", "round": 2, "model": "deepseek-v4-flash", "raw": "ji ze du ji tu", "confidence": 0.78, "run_at": "2026-10-03T19:40:00"}

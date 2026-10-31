@@ -1,0 +1,8 @@
+{
+  "purpose": "holdout 种子承诺（pre-registration commitment）",
+  "method": "种子在生成 holdout 之前由 os.urandom 随机抽出，先把 SHA-256 写进本文件，再生成数据。",
+  "why": "如果种子先写进仓库再生成，就等于放弃了 holdout——任何人都能复现并针对性训练。先承诺后生成，才能证明这套题没有根据结果挑过。",
+  "seed_sha256": "81a91218bfda9a2dea7370fc67e9eed21e6abb5da0ab47f7437a059d19847387",
+  "committed_at": "2026-10-03T19:07:12",
+  "reveal": "种子在 data/manifest_holdout.json 里公开（seed 字段），供复现；承诺哈希与之一致即证明未被事后更换。"
+}

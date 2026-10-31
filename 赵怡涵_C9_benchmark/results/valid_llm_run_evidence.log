@@ -1,0 +1,301 @@
+# ΔR-Bench · 有效 LLM 评测证据日志
+# 三段锚点（**全部为本机原始输出，未删改**）：① 冻结哈希 → ② 评测命令与输出 → ③ 复核哈希
+# 机器可读清单：results/llm_run_manifest.json
+# 评测者：C2A/C9 补强施工会话（子代理）；评测时间：2026-10-20
+
+## 0. 环境与模型来源（评测开始前采样）
+
+$ date '+%Y-%m-%d %H:%M:%S'; uname -sm; python3 -V
+2026-10-20 18:58:04
+Darwin arm64
+Python 3.9.6
+
+$ /Users/zhanghao/.docker/bin/inference/llama-server --version
+version: 1 (e365e65)
+built with AppleClang 17.0.0.17000013 for Darwin arm64
+
+$ curl -s http://127.0.0.1:11435/v1/models     # qwen3-4b-q4km 推理端点
+{"models":[{"name":"qwen3-4b-q4km","model":"qwen3-4b-q4km","modified_at":"","size":"","digest":"","type":"model","description":"","tags":[""],"capabilities":["completion"],"parameters":"","details":{"parent_model":"","format":"gguf","family":"","families":[""],"parameter_size":"","quantization_level":""}}],"object":"list","data":[{"id":"qwen3-4b-q4km","aliases":["qwen3-4b-q4km"],"tags":[],"object":"model","created":1792493885,"owned_by":"llamacpp","meta":{"vocab_type":2,"n_vocab":151936,"n_ctx_train":40960,"n_embd":2560,"n_params":4022468096,"size":2491323904}}]}
+$ curl -s http://127.0.0.1:11436/v1/models     # gemma4-e2b-q4km 推理端点
+{"models":[{"name":"gemma4-e2b-q4km","model":"gemma4-e2b-q4km","modified_at":"","size":"","digest":"","type":"model","description":"","tags":[""],"capabilities":["completion"],"parameters":"","details":{"parent_model":"","format":"gguf","family":"","families":[""],"parameter_size":"","quantization_level":""}}],"object":"list","data":[{"id":"gemma4-e2b-q4km","aliases":["gemma4-e2b-q4km"],"tags":[],"object":"model","created":1792493885,"owned_by":"llamacpp","meta":{"vocab_type":2,"n_vocab":262144,"n_ctx_train":131072,"n_embd":1536,"n_params":4647450147,"size":3090917516}}]}
+$ shasum -a 256 <Ollama 权重 blob>（blob 文件名即 sha256，与上面 /v1/models 的模型对齐）
+7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5  /Users/zhanghao/.ollama/models/blobs/sha256-7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5
+740185b21d22ceb83a11c3aa62ad5842ef32c70f6096d756bbee85a1e4ec34b8  /Users/zhanghao/.ollama/models/blobs/sha256-740185b21d22ceb83a11c3aa62ad5842ef32c70f6096d756bbee85a1e4ec34b8
+# qwen3-4b-q4km   layer digest = sha256:7485fe6f…  ← 与上一行一致
+# gemma4-e2b-q4km layer digest = sha256:740185b2…  ← 与上一行一致
+
+$ curl -s http://127.0.0.1:11434/api/chat -d '{"model":"gemma4-e2b-q4km:latest","messages":[{"role":"user","content":"hi"}],"stream":false}'
+{"error":"error starting llama-server: llama-server binary not found (checked: /private/tmp/ollama/llama-server, /tmp/ollama/llama-server, /tmp/ollama/lib/ollama/llama-server, /tmp/lib/ollama/llama-server, /tmp/ollama/build/lib/ollama/llama-server, /tmp/ollama
+# 说明（如实）：本机 Ollama 0.40.3 开发构建的 llama-server runner 二进制缺失，
+#   /api/chat 返回 500。因此改用 llama.cpp 的 llama-server 直接加载**同一份 GGUF 权重**
+#   （sha256 与 Ollama manifest 的 layer digest 一致）。这是本地权重推理，不是远程 API。
+
+## 0b. 数据修复记录（在冻结**之前**发生，如实登记）
+
+施工中一次 3 题冒烟测试把临时 root 指向了真实 data/ 目录（符号链接），
+#   误将 data/tasks_dev.jsonl 与 keys/keys_dev.jsonl 覆盖成 7 题子集。发现后立即：
+#   ① 备份被覆盖文件；② 用**同一个种子**（20261031）重新生成 dev；③ 用四条独立不变量校验等价：
+#   - 84/84 gold 与三份**在事故前跑出**的 dev 预测文件完全一致；
+#   - 12/12 宇宙 rule_fingerprint 与**原始** manifest_dev.json 一致；
+#   - query/support 输入/alphabet/phase/difficulty 与**未被触碰**的 control_corrupt_dev.jsonl 完全一致；
+#   - 重新生成后 control_corrupt_dev.jsonl 与 perturb_dev.jsonl 的 sha256 与事故前**逐字节相同**；
+#   - 基准自检 S7 重算 search_solver dev = 0.7857，与存档分数完全一致。
+#   原始 manifest_dev.json 已按备份回填（其 generated_at/gen_seconds 是 19:52 那次真实生成的记录）。
+#   该事故发生在数据冻结之前，故不污染任何评测结果；但它说明"临时 root 用符号链接"是危险操作，已改为拷贝。
+
+$ shasum -a 256 data/tasks_dev.jsonl keys/keys_dev.jsonl data/control_corrupt_dev.jsonl data/perturb_dev.jsonl data/manifest_dev.json data/holdout_seed_commitment.json
+e118c48876e285621759ba843b57d0fae1e42a95964210384d3fd71ed82b1b5c  data/tasks_dev.jsonl
+f0e32189eafa1e38e7211d88fa1b41a29d021b44f3a96dff9dc1ac942fb4e0d5  keys/keys_dev.jsonl
+660d0f48f1c7124797c08046e0cca809c40544787c27c4bc9618b3673af3c45d  data/control_corrupt_dev.jsonl
+1e67a822e98650692f1cb8854abd1f42e1d3754b309b5c34bfe784fe722641ed  data/perturb_dev.jsonl
+751a3ab2dda0a429a1570af210ce415e29ea44151c149963e689cec1d3e8ce5b  data/manifest_dev.json
+ac3fc2b0824096367986c9c72af71fe4938c3b27f3a829a6d4d343d0759ff975  data/holdout_seed_commitment.json
+
+## 1. 数据冻结（**评测开始前**）
+
+$ date '+%Y-%m-%d %H:%M:%S'
+2026-10-20 18:58:15
+
+$ shasum -a 256 data/tasks_dev.jsonl data/tasks_holdout.jsonl keys/keys_dev.jsonl keys/keys_holdout.jsonl \
+    data/manifest_dev.json data/manifest_holdout.json data/holdout_seed_commitment.json \
+    data/control_corrupt_dev.jsonl data/control_corrupt_holdout.jsonl data/perturb_dev.jsonl data/perturb_holdout.jsonl
+e118c48876e285621759ba843b57d0fae1e42a95964210384d3fd71ed82b1b5c  data/tasks_dev.jsonl
+fce4de4fbeeebc90c7cbe9c5089a0cb906fb9f576811bf3992d62d52366d41b8  data/tasks_holdout.jsonl
+f0e32189eafa1e38e7211d88fa1b41a29d021b44f3a96dff9dc1ac942fb4e0d5  keys/keys_dev.jsonl
+213e55f54b86829f5820db317180f337b9e68c0fdffcb0647cd209ccc22abb1f  keys/keys_holdout.jsonl
+751a3ab2dda0a429a1570af210ce415e29ea44151c149963e689cec1d3e8ce5b  data/manifest_dev.json
+b38eb4c5066b141c73b55713dced6c6ad81c52b13f15d5cdd6fc09495e953e3f  data/manifest_holdout.json
+ac3fc2b0824096367986c9c72af71fe4938c3b27f3a829a6d4d343d0759ff975  data/holdout_seed_commitment.json
+660d0f48f1c7124797c08046e0cca809c40544787c27c4bc9618b3673af3c45d  data/control_corrupt_dev.jsonl
+1fd348808e5b015e38a0735c0f8e56dae38578211c6d5678e7eab4212999a761  data/control_corrupt_holdout.jsonl
+1e67a822e98650692f1cb8854abd1f42e1d3754b309b5c34bfe784fe722641ed  data/perturb_dev.jsonl
+076f5e1023d449dd508a5d7a756031e5a7c89866e9bb1c1a11fa46ea3d48ee3c  data/perturb_holdout.jsonl
+
+$ shasum -a 256 bench/generate.py bench/run_eval.py bench/scoring.py bench/models/__init__.py   # 评测代码也一并冻结
+4f59e8740b47aab10798570371085e6abb10cb3f470d01e375e413eec28bad06  bench/generate.py
+d2eba29d2d7d0ccc99db1ca7faf0ed7542648b44798a7f9cac5df07337a057a0  bench/run_eval.py
+45dc88c19d3655ceabe70e0fcb231d483c7c8c99fbf223f7c82c469b487051d3  bench/scoring.py
+a47334dd178357b8f42655cfbd8005d87a542077b8e3dfedb88da342c9a7620a  bench/models/__init__.py
+
+$ ls -lT data/tasks_dev.jsonl data/tasks_holdout.jsonl keys/keys_dev.jsonl keys/keys_holdout.jsonl
+-rw-r--r--@ 1 zhanghao  staff  137894 Oct 20 18:57:20 2026 data/tasks_dev.jsonl
+-rw-r--r--@ 1 zhanghao  staff  140183 Oct  3 19:53:48 2026 data/tasks_holdout.jsonl
+-rw-r--r--@ 1 zhanghao  staff   22566 Oct 20 18:57:20 2026 keys/keys_dev.jsonl
+-rw-r--r--@ 1 zhanghao  staff   24406 Oct  3 19:53:48 2026 keys/keys_holdout.jsonl
+
+### 2.1  gemma4-e2b-q4km @ dev
+$ date '+%Y-%m-%d %H:%M:%S'
+2026-10-20 18:58:25
+$ PYTHONPATH=. python3 -m bench.run_eval --model llamacpp --model-name gemma4-e2b-q4km \
+      --endpoint http://127.0.0.1:11436/v1 --thinking off --num-predict 1024 --split dev
+======================================================================
+ ΔR-Bench 评测
+ 适配器 : llm_gemma4-e2b-q4km (llm)
+ split  : dev   题目集: tasks
+ 题量   : Round1=60  Round2=24
+ 前沿模型: **否**
+======================================================================
+
+结果：
+  n                                84
+  accuracy                         0.0357
+  parse_failure_rate               0.0
+  acc_phase_A                      0.0
+  acc_phase_B                      0.0
+  acc_phase_C                      0.125
+  LearningGain_B_minus_A           0.0
+  FeedbackGain_C_minus_B           0.125
+  acc_easy                         0.0714
+  acc_medium                       0.0286
+  acc_hard                         0.0
+  acc_id                           0.0
+  acc_ood                          0.0
+  GeneralizationGap_id_minus_ood   0.0
+  RevisionRate_C_given_B           0.125
+  OvercorrectionRate               None
+  copy_input_rate                  0.2024
+  ECE                              None
+  confidence_gap                   None
+
+  明细 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/llm_gemma4-e2b-q4km_dev_predictions.jsonl
+  分数 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/llm_gemma4-e2b-q4km_dev_scores.json
+  耗时 : 21.1s
+
+[exit code: 0]
+
+### 2.2  gemma4-e2b-q4km @ holdout
+$ date '+%Y-%m-%d %H:%M:%S'
+2026-10-20 18:58:46
+$ PYTHONPATH=. python3 -m bench.run_eval --model llamacpp --model-name gemma4-e2b-q4km \
+      --endpoint http://127.0.0.1:11436/v1 --thinking off --num-predict 1024 --split holdout
+======================================================================
+ ΔR-Bench 评测
+ 适配器 : llm_gemma4-e2b-q4km (llm)
+ split  : holdout   题目集: tasks
+ 题量   : Round1=60  Round2=24
+ 前沿模型: **否**
+======================================================================
+
+结果：
+  n                                84
+  accuracy                         0.0833
+  parse_failure_rate               0.0
+  acc_phase_A                      0.0
+  acc_phase_B                      0.1667
+  acc_phase_C                      0.0417
+  LearningGain_B_minus_A           0.1667
+  FeedbackGain_C_minus_B           -0.125
+  acc_easy                         0.0357
+  acc_medium                       0.0286
+  acc_hard                         0.2381
+  acc_id                           0.0278
+  acc_ood                          0.2083
+  GeneralizationGap_id_minus_ood   -0.125
+  RevisionRate_C_given_B           0.0417
+  OvercorrectionRate               0.9
+  copy_input_rate                  0.2024
+  ECE                              None
+  confidence_gap                   None
+
+  明细 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/llm_gemma4-e2b-q4km_holdout_predictions.jsonl
+  分数 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/llm_gemma4-e2b-q4km_holdout_scores.json
+  耗时 : 21.7s
+
+[exit code: 0]
+
+### 2.3  qwen3-4b-q4km @ dev
+$ date '+%Y-%m-%d %H:%M:%S'
+2026-10-20 18:59:08
+$ PYTHONPATH=. python3 -m bench.run_eval --model llamacpp --model-name qwen3-4b-q4km \
+      --endpoint http://127.0.0.1:11435/v1 --thinking off --num-predict 1024 --split dev
+======================================================================
+ ΔR-Bench 评测
+ 适配器 : llm_qwen3-4b-q4km (llm)
+ split  : dev   题目集: tasks
+ 题量   : Round1=60  Round2=24
+ 前沿模型: **否**
+======================================================================
+
+结果：
+  n                                84
+  accuracy                         0.0595
+  parse_failure_rate               0.0
+  acc_phase_A                      0.0417
+  acc_phase_B                      0.0556
+  acc_phase_C                      0.0833
+  LearningGain_B_minus_A           0.0139
+  FeedbackGain_C_minus_B           0.0278
+  acc_easy                         0.1071
+  acc_medium                       0.0286
+  acc_hard                         0.0476
+  acc_id                           0.0556
+  acc_ood                          0.0417
+  GeneralizationGap_id_minus_ood   0.0417
+  RevisionRate_C_given_B           0.0833
+  OvercorrectionRate               0.75
+  copy_input_rate                  0.131
+  ECE                              None
+  confidence_gap                   None
+
+  明细 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/llm_qwen3-4b-q4km_dev_predictions.jsonl
+  分数 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/llm_qwen3-4b-q4km_dev_scores.json
+  耗时 : 30.5s
+
+[exit code: 0]
+
+### 2.4  qwen3-4b-q4km @ holdout
+$ date '+%Y-%m-%d %H:%M:%S'
+2026-10-20 18:59:38
+$ PYTHONPATH=. python3 -m bench.run_eval --model llamacpp --model-name qwen3-4b-q4km \
+      --endpoint http://127.0.0.1:11435/v1 --thinking off --num-predict 1024 --split holdout
+======================================================================
+ ΔR-Bench 评测
+ 适配器 : llm_qwen3-4b-q4km (llm)
+ split  : holdout   题目集: tasks
+ 题量   : Round1=60  Round2=24
+ 前沿模型: **否**
+======================================================================
+
+结果：
+  n                                84
+  accuracy                         0.1071
+  parse_failure_rate               0.0
+  acc_phase_A                      0.0417
+  acc_phase_B                      0.1667
+  acc_phase_C                      0.0833
+  LearningGain_B_minus_A           0.125
+  FeedbackGain_C_minus_B           -0.0833
+  acc_easy                         0.0357
+  acc_medium                       0.1714
+  acc_hard                         0.0952
+  acc_id                           0.0833
+  acc_ood                          0.1667
+  GeneralizationGap_id_minus_ood   0.0
+  RevisionRate_C_given_B           0.0833
+  OvercorrectionRate               0.9
+  copy_input_rate                  0.131
+  ECE                              None
+  confidence_gap                   None
+
+  明细 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/llm_qwen3-4b-q4km_holdout_predictions.jsonl
+  分数 : /Users/zhanghao/Desktop/赵怡涵_C2A_提交包/赵怡涵_C9_benchmark/results/llm_qwen3-4b-q4km_holdout_scores.json
+  耗时 : 32.5s
+
+[exit code: 0]
+
+## 3. 复核哈希（**全部评测跑完之后**，同一批文件）
+
+$ date '+%Y-%m-%d %H:%M:%S'
+2026-10-20 19:00:38
+
+$ shasum -a 256 data/tasks_dev.jsonl data/tasks_holdout.jsonl keys/keys_dev.jsonl keys/keys_holdout.jsonl \
+    data/manifest_dev.json data/manifest_holdout.json data/holdout_seed_commitment.json \
+    data/control_corrupt_dev.jsonl data/control_corrupt_holdout.jsonl data/perturb_dev.jsonl data/perturb_holdout.jsonl
+e118c48876e285621759ba843b57d0fae1e42a95964210384d3fd71ed82b1b5c  data/tasks_dev.jsonl
+fce4de4fbeeebc90c7cbe9c5089a0cb906fb9f576811bf3992d62d52366d41b8  data/tasks_holdout.jsonl
+f0e32189eafa1e38e7211d88fa1b41a29d021b44f3a96dff9dc1ac942fb4e0d5  keys/keys_dev.jsonl
+213e55f54b86829f5820db317180f337b9e68c0fdffcb0647cd209ccc22abb1f  keys/keys_holdout.jsonl
+751a3ab2dda0a429a1570af210ce415e29ea44151c149963e689cec1d3e8ce5b  data/manifest_dev.json
+b38eb4c5066b141c73b55713dced6c6ad81c52b13f15d5cdd6fc09495e953e3f  data/manifest_holdout.json
+ac3fc2b0824096367986c9c72af71fe4938c3b27f3a829a6d4d343d0759ff975  data/holdout_seed_commitment.json
+660d0f48f1c7124797c08046e0cca809c40544787c27c4bc9618b3673af3c45d  data/control_corrupt_dev.jsonl
+1fd348808e5b015e38a0735c0f8e56dae38578211c6d5678e7eab4212999a761  data/control_corrupt_holdout.jsonl
+1e67a822e98650692f1cb8854abd1f42e1d3754b309b5c34bfe784fe722641ed  data/perturb_dev.jsonl
+076f5e1023d449dd508a5d7a756031e5a7c89866e9bb1c1a11fa46ea3d48ee3c  data/perturb_holdout.jsonl
+
+$ shasum -a 256 bench/generate.py bench/run_eval.py bench/scoring.py bench/models/__init__.py
+4f59e8740b47aab10798570371085e6abb10cb3f470d01e375e413eec28bad06  bench/generate.py
+d2eba29d2d7d0ccc99db1ca7faf0ed7542648b44798a7f9cac5df07337a057a0  bench/run_eval.py
+45dc88c19d3655ceabe70e0fcb231d483c7c8c99fbf223f7c82c469b487051d3  bench/scoring.py
+a47334dd178357b8f42655cfbd8005d87a542077b8e3dfedb88da342c9a7620a  bench/models/__init__.py
+
+## 4. 复核判定（脚本比对第 1 节与第 3 节）
+冻结条目 15 个，复核条目 15 个
+不一致条目：0 个
+判定：哈希一致，本次评测数据未被改动，结果有效 ✅
+
+## 5. 从 results/raw/ 离线重放复核（recorded_llm 适配器，换一个干净 root）
+# 这一步只读 raw 里的逐题原始回答，不看任何其它预测文件；指标必须与正式运行逐字段相同。
+$ python3 -m bench.run_eval --model recorded_llm --model-name gemma4-e2b-q4km --raw results/raw/llm_gemma4-e2b-q4km_dev.jsonl --split dev --root /tmp/drbench_llm/replayroot
+  [exit 0]
+  重放 acc=0.0357；与正式运行相比不一致字段：无（0 个）
+$ python3 -m bench.run_eval --model recorded_llm --model-name gemma4-e2b-q4km --raw results/raw/llm_gemma4-e2b-q4km_holdout.jsonl --split holdout --root /tmp/drbench_llm/replayroot
+  [exit 0]
+  重放 acc=0.0833；与正式运行相比不一致字段：无（0 个）
+$ python3 -m bench.run_eval --model recorded_llm --model-name qwen3-4b-q4km --raw results/raw/llm_qwen3-4b-q4km_dev.jsonl --split dev --root /tmp/drbench_llm/replayroot
+  [exit 0]
+  重放 acc=0.0595；与正式运行相比不一致字段：无（0 个）
+$ python3 -m bench.run_eval --model recorded_llm --model-name qwen3-4b-q4km --raw results/raw/llm_qwen3-4b-q4km_holdout.jsonl --split holdout --root /tmp/drbench_llm/replayroot
+  [exit 0]
+  重放 acc=0.1071；与正式运行相比不一致字段：无（0 个）
+重放判定：4/4 组逐字段一致 —— 分数可由 raw 逐题原始回答完全复算 ✅
+
+## 7. thinking 模式实测（**说明为什么本次正式配置是 thinking=off**）
+# 同一题面（dR-dev-dev-u00-B0）、同一 seed、不关闭思考，只改 num_predict。
+$ python3 /tmp/drbench_llm/probe_thinking.py
+  item_id=dR-dev-dev-u00-B0  gold=['ji', 'ka', 'fu', 'ji']
+  # thinking 默认开启（不传 chat_template_kwargs）；同一题面、同一 seed
+  gemma4-e2b-q4km  num_predict=1024  wall=  21.3s finish=length completion_tokens=1024  content='' reason_chars=2879 predicted_per_second=49.9
+  gemma4-e2b-q4km  num_predict=3072  wall=  64.9s finish=stop   completion_tokens=3068  content='ji ka fu ji' reason_chars=9156 predicted_per_second=47.4
+  qwen3-4b-q4km    num_predict=1024  wall=  37.4s finish=length completion_tokens=1024  content='' reason_chars=3859 predicted_per_second=27.4
+  qwen3-4b-q4km    num_predict=3072  wall= 132.0s finish=length completion_tokens=3072  content='' reason_chars=11448 predicted_per_second=23.3
